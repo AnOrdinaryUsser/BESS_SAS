@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -16,14 +15,9 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
-import video from "./../../../assets/video/background.mp4";
 import image from "./../../../assets/images/background.jpg";
 import { Auth } from "../../../services/UsersService.js";
-import ocs from './../../../assets/brand/OCS.png'
-import jcyl from './../../../assets/brand/jcyl.png'
-import upsa from './../../../assets/brand/upsa.jpg'
-import cgb from './../../../assets/brand/cgb.jpg'
-import esalab from './../../../assets/brand/esalab.jpg'
+import ocs from './../../../assets/images/OCS.png'
 
 
 /**

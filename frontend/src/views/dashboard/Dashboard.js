@@ -60,7 +60,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1 className="mb-4">Bienvenido de nuevo: {name}</h1>
+      <h1 className="mb-4">Bienvenido de nuevo 👋: {name}</h1>
       <h2 className="mb-4">Mis datos</h2>
       <CContainer>
         <CRow>

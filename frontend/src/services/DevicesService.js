@@ -47,7 +47,7 @@ export const getDevice = async (serialNumber_, setDevice) => {
 export const deleteDevice = async (e) => {
   try {
     await axios.post(`http://${IP_SERVER}:${PORT_BACKEND}/deleteDevice`, {
-      id: e.currentTarget.id,
+      serialNumber: e.currentTarget.id,
     });
     window.location.reload();
   } catch (error) {

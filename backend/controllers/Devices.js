@@ -110,7 +110,7 @@ export const uploadImg = async(req, res) => {
     try {
         res.json({msg: "ImageUpload"});
     } catch (error) {
-        return res.status(201).json({ url: "http://192.168.1.128:9000/image/" + imageName });
+        return res.status(201).json({ url: "http://192.168.1.128:9000/image/" + serialNumber });
     }
 }
 

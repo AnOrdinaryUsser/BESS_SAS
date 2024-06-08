@@ -39,7 +39,7 @@ router.post('/modifyDevice',modifyDevice);
 
 // Roads
 router.post('/uploadImage', addRoadWithMiddleware);
-router.get('/getAllImages/:userName', getAllImages);
+router.get('/getAllImages/:serialNumber', getAllImages);
 router.delete('/deleteImage/:userName/:imageName', deleteImage);
 
 

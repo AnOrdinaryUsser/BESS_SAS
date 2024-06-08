@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createRef } from "react";
-import ReactDOM from 'react-dom'
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import CIcon from "@coreui/icons-react";
 import {
   CButton,
   CCol,
@@ -22,9 +22,6 @@ import {
   CFormLabel,
   CBadge,
 } from "@coreui/react";
-
-
-
 import {
   getDevices,
   getDevice,
@@ -32,16 +29,18 @@ import {
   modifyDevice,
   addDevice,
 } from "../../services/DevicesService";
+import { useNavigate } from 'react-router-dom';
 import { refreshToken } from "../../services/UsersService";
-
-import CIcon from "@coreui/icons-react";
 import { cilSearch, cilPencil, cilTrash, cilChartPie } from "@coreui/icons";
 
 const IP_SERVER = process.env.REACT_APP_IP_SERVER;
 const PORT_BACKEND = process.env.REACT_APP_PORT_BACKEND;
-import { useNavigate } from 'react-router-dom';
 
-const PacientList = () => {
+/**
+ * @description View for Device Chart
+ * In this view you can see a list of all devices installed (containers deployed)
+ */
+const DevicesList = () => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState('');
@@ -52,12 +51,8 @@ const PacientList = () => {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [expire, setExpire] = useState("");
-  const [visibility, setVisibility] = useState(true);
   const [validated, setValidated] = useState(false);
-  const [show, setShow] = useState(true);
-  const [edit, setEdit] = useState(false);
   const [visibleModify, setVisibleModify] = useState(false);
-
 
   const getBadge = (status) => {
     switch (status) {
@@ -73,17 +68,6 @@ const PacientList = () => {
         return 'primary'
     }
   }
-
- /* useEffect(() => {
-    PatientService.getPatientsData()
-      .then((response) => response.json())
-      .then((response) => {
-        if (response) {
-          setDeviceList(response);
-          //console.log(response)
-        }
-      });
-  }, []);*/
 
   useEffect(() => {
     refreshToken(setToken, setExpire, setName, setEmail);
@@ -114,7 +98,6 @@ const PacientList = () => {
     setVisibleModify(!visibleModify);
     getDevice(deviceSerialNumber, setDevice);
   }
-
 
   return (
     <>
@@ -166,6 +149,8 @@ const PacientList = () => {
                       backgroundColor: "#3a8cbe",
                       borderColor: "#3a8cbe",
                       marginRight: "5px",
+                      marginTop: "5px",
+                      marginBottom: "5px",
                     }}
                     onClick={() => handlerButton(item.serialNumber)}
                   >
@@ -176,7 +161,9 @@ const PacientList = () => {
                     style={{
                       backgroundColor: "#e8463a",
                       borderColor: "#e8463a",
+                      marginTop: "5px",
                       marginRight: "5px",
+                      marginBottom: "5px",
                     }}
                     onClick={deleteDevice}
                   >
@@ -187,6 +174,8 @@ const PacientList = () => {
                     style={{
                       backgroundColor: "#5ab660",
                       borderColor: "#5ab660",
+                      marginTop: "5px",
+                      marginBottom: "5px",
                     }}
                     onClick={() => navigate(`/device?serialNumber=${item.serialNumber}`)}
                   >
@@ -401,4 +390,4 @@ const PacientList = () => {
   );
 };
 
-export default PacientList;
+export default DevicesList;

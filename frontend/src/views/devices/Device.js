@@ -1,67 +1,33 @@
 import React, { useEffect, useState, createRef } from "react";
 import {
-  CButton,
-  CCard,
-  CCardBody,
   CCol,
   CContainer,
-  CForm,
-  CFormInput,
-  CInputGroup,
-  CInputGroupText,
   CRow,
 } from "@coreui/react";
 import { CChart } from '@coreui/react-chartjs'
 import { useLocation } from "react-router-dom";
-import CIcon from "@coreui/icons-react";
-import {
-  getDevices,
-  getDevice,
-  deleteDevice,
-  modifyDevice,
-  addDevice,
-} from "../../services/DevicesService";
-import { refreshToken } from "../../services/UsersService";
-
-
-const IP_SERVER = process.env.REACT_APP_IP_SERVER;
-const PORT_BACKEND = process.env.REACT_APP_PORT_BACKEND;
-import { cilLockLocked, cilUser } from "@coreui/icons";
-import { Register } from "../../services/UsersService.js";
-import usalEscudo from './../../assets/brand/usal.png'
-import ocs from './../../assets/brand/OCS.png'
-
+import { getDevice } from "../../services/DevicesService";
+import usalEscudo from './../../assets/images/usal.png'
+import ocs from './../../assets/images/OCS.png'
 import organic from './../../assets/images/organicG.png'
 import plastic from './../../assets/images/plasticG.png'
-import metal from './../../assets/images/metalG.png'
 import paper from './../../assets/images/paperG.png'
 import glass from './../../assets/images/glassG.png'
 
 
-
-
-function getStyle(variable) {
-  return getComputedStyle(document.documentElement).getPropertyValue(variable);
-}
-
 /**
- * @description View for Register
- * In this view the user can register.
+ * @description View for Device Chart
+ * In this view you can see capacity charts of containers
  */
-const Registered = () => {
-  const [validated, setValidated] = useState(false);
+const Device = () => {
   const location = useLocation();
   const [device, setDevice] = useState([]);
-
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const serialNumber = params.get('serialNumber');
-
     getDevice(serialNumber, setDevice);
-  
   }, [location]);
-
 
   return (
     <div>
@@ -95,7 +61,7 @@ const Registered = () => {
               cutout: '80%',
               plugins: {
                 legend: {
-                  display: false, // Ocultar la leyenda para evitar solapamientos
+                  display: false, 
                 },
               },
             }}
@@ -108,8 +74,8 @@ const Registered = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '100px', // ajusta el tamaño de la imagen según sea necesario
-              height: '100px', // ajusta el tamaño de la imagen según sea necesario
+              width: '100px', 
+              height: '100px', 
             }}
           />
         </div>
@@ -131,7 +97,7 @@ const Registered = () => {
               cutout: '80%',
               plugins: {
                 legend: {
-                  display: false, // Ocultar la leyenda para evitar solapamientos
+                  display: false, 
                 },
               },
             }}
@@ -144,8 +110,8 @@ const Registered = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '100px', // ajusta el tamaño de la imagen según sea necesario
-              height: '100px', // ajusta el tamaño de la imagen según sea necesario
+              width: '100px',
+              height: '100px', 
             }}
           />
         </div>
@@ -167,7 +133,7 @@ const Registered = () => {
               cutout: '80%',
               plugins: {
                 legend: {
-                  display: false, // Ocultar la leyenda para evitar solapamientos
+                  display: false, 
                 },
               },
             }}
@@ -180,8 +146,8 @@ const Registered = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '100px', // ajusta el tamaño de la imagen según sea necesario
-              height: '100px', // ajusta el tamaño de la imagen según sea necesario
+              width: '100px', 
+              height: '100px', 
             }}
           />
         </div>
@@ -203,7 +169,7 @@ const Registered = () => {
               cutout: '80%',
               plugins: {
                 legend: {
-                  display: false, // Ocultar la leyenda para evitar solapamientos
+                  display: false, 
                 },
               },
             }}
@@ -216,8 +182,8 @@ const Registered = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '150px', // ajusta el tamaño de la imagen según sea necesario
-              height: '150px', // ajusta el tamaño de la imagen según sea necesario
+              width: '150px', 
+              height: '150px', 
             }}
           />
         </div>
@@ -232,4 +198,4 @@ const Registered = () => {
   );
 };
 
-export default Registered;
+export default Device;

@@ -4,6 +4,7 @@ import { CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler, CImage } from '@
 import { AppSidebarNav } from './AppSidebarNav'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
+import ocs from './../assets/images/OCS.png'
 import navigation from "../_nav";
 
 /**
@@ -24,9 +25,10 @@ const AppSidebar = () => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
     >
-      {/* <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CImage fluid src={logo} style={{padding:"8px"}} alt="Logo" />
-      </CSidebarBrand> */}
+      <CSidebarBrand className="d-none d-md-flex" to="/"
+       style={{backgroundColor: '#279b48'}}>
+        <CImage fluid src={ocs} style={{padding:"8px"}} alt="Logo" />
+      </CSidebarBrand>
       <CSidebarNav style={{backgroundColor: '#52af6d'}}>
         <SimpleBar>
           <AppSidebarNav items={navigation} />

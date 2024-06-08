@@ -7,6 +7,7 @@ import db from "./config/AuthDB.js";
 import router from "./routes/index.js";
 import Users from "./models/UserModel.js";
 import Devices from "./models/DevicesModel.js";
+import DataDevices from './models/DataDevices.js';
 import { Sequelize } from "sequelize";
 
 dotenv.config();
@@ -43,16 +44,15 @@ app.listen(9000, async () => {
       });
     }
 
-    const device = await Devices.findByPk(1);
-
-    if (!device) {
-      await Devices.create({
-        serialNumber: "C91G9-2CJ77-YP8NW-6T5VY-G862E",
-        location: "Patio de Escuelas, 4, 37008 Salamanca",
-        registered: "02/06/2024",
-        status: "Active"
-      });
-    }
+    DataDevices.forEach(async (item) => {
+      // Verifica si el dispositivo ya existe (puedes ajustar esta lógica según tus necesidades)
+      const device = await Devices.findOne({ where: { serialNumber: item.serialNumber } });
+      
+      // Si el dispositivo no existe, créalo
+      if (!device) {
+        await Devices.create(item);
+      }
+    });
 
   } catch (err) {
     console.error(err);

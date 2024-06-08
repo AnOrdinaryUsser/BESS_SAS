@@ -22,7 +22,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Imagenes IA',
-    to: '/',
+    to: '/gallery',
     icon: <CIcon icon={cilImage} customClassName="nav-icon" />,
   },
   {
