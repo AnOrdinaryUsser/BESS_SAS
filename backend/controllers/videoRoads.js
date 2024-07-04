@@ -313,3 +313,9 @@ const drawBoundingBoxes64 = async (originalImageBase64, imageData) => {
     }
   });
 };
+
+const generateUniqueName = () => {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().replace(/[-:.]/g, '').replace('T', '_').split('.')[0];
+  return `image_${formattedDate}`;
+};
