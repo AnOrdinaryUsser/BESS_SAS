@@ -6,7 +6,7 @@ import { getUsers, Register, Login, Logout, modifyUser, deleteUser } from "../co
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../controllers/RefreshToken.js";
 import { recoverPassword, resetPassword } from "../controllers/Mail.js";
-import { addRoadWithMiddleware, getAllImages, deleteImage } from "../controllers/imgRoads.js";
+import { addRoadWithMiddleware, getAllImages, deleteImage } from "../controllers/ImgIA.js";
 import { addDevice, deleteDevice, getDevices, getDevice, modifyDevice } from "../controllers/Devices.js";
 //import { processVideo } from "../controllers/videoRoads.js";
 import bodyParser from "body-parser";
@@ -36,13 +36,10 @@ router.post('/deleteDevice', deleteDevice);
 router.post('/addDevice', addDevice);
 router.post('/modifyDevice',modifyDevice);
 
-
-// Roads
+// Gallery
 router.post('/uploadImage', addRoadWithMiddleware);
 router.get('/getAllImages/:serialNumber', getAllImages);
 router.delete('/deleteImage/:userName/:imageName', deleteImage);
-
-
 
 // Video Roads
 //router.post('/uploadVideo', processVideo);

@@ -3,16 +3,23 @@ import {
   CCol,
   CContainer,
   CRow,
+  CButton,
+  CModal,
+  CModalBody,
+  CModalHeader,
 } from "@coreui/react";
 import { CChart } from '@coreui/react-chartjs'
 import { useLocation } from "react-router-dom";
 import { getDevice } from "../../services/DevicesService";
+import { handleCaptureImage, handleArduinoDoors } from "../../services/ImgService"
 import usalEscudo from './../../assets/images/usal.png'
 import ocs from './../../assets/images/OCS.png'
 import organic from './../../assets/images/organicG.png'
 import plastic from './../../assets/images/plasticG.png'
 import paper from './../../assets/images/paperG.png'
 import glass from './../../assets/images/glassG.png'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 
 /**
@@ -22,12 +29,37 @@ import glass from './../../assets/images/glassG.png'
 const Device = () => {
   const location = useLocation();
   const [device, setDevice] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(5);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const serialNumber = params.get('serialNumber');
     getDevice(serialNumber, setDevice);
   }, [location]);
+
+  useEffect(() => {
+    if (showMessage && timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0) {
+      setShowMessage(false);
+      setTimeLeft(5);
+    }
+  }, [showMessage, timeLeft]);
+
+  const handleButtonClick = async () => {
+    try {
+      setShowMessage(true);
+      handleCaptureImage();
+    } catch (error) {
+      alert('Error al cerrar las puertas de Arduino. Por favor, inténtelo de nuevo.');
+      console.error('Error en handleArduinoDoors:', error);
+    }
+  };
 
   return (
     <div>
@@ -189,11 +221,34 @@ const Device = () => {
         </div>
           </CCol>
         </CRow>
+        <CRow className="justify-content-center mt-5">
+            <CCol md={3} className="text-center">
+              <CButton style={{ backgroundColor: "#279b48", borderColor:"#279b48"}}
+               size="lg" onClick={handleButtonClick}>Iniciar reciclaje</CButton>
+            </CCol>
+          </CRow>
       </CContainer>
     </div>
-    <div className="position-absolute bottom-0 end-0 p-3">
-        <a href="#" style={{ textDecoration: 'none', color: '#4b4b4b', fontWeight: 'bold', fontSize: 'larger' }}>¿Cómo funciona?</a>
+      <div className="position-absolute bottom-0 end-0 p-3">
+          <a href="#" style={{ textDecoration: 'none', color: '#4b4b4b', fontWeight: 'bold', fontSize: 'larger' }}>¿Cómo funciona?</a>
       </div>
+      <CModal visible={showMessage} onClose={() => setShowMessage(false)} backdrop="static" keyboard={false} alignment="center">
+          <CModalBody className="text-center">
+          <div style={{ width: '450px', height: '450px', margin: '0 auto' }}>
+            <CircularProgressbar
+              value={5 - timeLeft}
+              maxValue={5}
+              text={`${timeLeft}`}
+              styles={buildStyles({
+                pathColor: '#279b48',
+                textColor: '#279b48',
+                trailColor: '#d6d6d6',
+              })}
+            />
+          </div>
+          <h2 style={{ color: '#279b48', marginTop: '10px' }}>Abriendo puertas, deposite el material en el interior</h2>
+        </CModalBody>
+      </CModal>
     </div>
   );
 };

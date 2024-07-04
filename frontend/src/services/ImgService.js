@@ -11,6 +11,31 @@ const PORT_PROXY = process.env.REACT_APP_PORT_PROXY;
 const API_URL = `http://${IP_SERVER}:${PORT_BACKEND}`;
 
 
+/**
+ * Take a photo and sent to Robflow model
+ * @method handleCaptureImage
+ */
+export const handleCaptureImage = async () => {
+  try {
+    const result = await axios.post(`http://${IP_SERVER}:${PORT_PROXY}/captureImage`);
+  } catch (error) {
+    alert('Error capturing image. Please try again.');
+  }
+};
+export const handleArduinoDoors = () => {
+  return new Promise((resolve, reject) => {
+    axios.post(`http://${IP_SERVER}:${PORT_PROXY}/closeDoors`)
+      .then(response => {
+        console.log("Puertas cerradas exitosamente");
+        resolve(response.data); // Resuelve la promesa con cualquier dato necesario
+      })
+      .catch(error => {
+        console.error('Error al cerrar las puertas de Arduino:', error);
+        reject(error); // Rechaza la promesa en caso de error
+      });
+  });
+};
+
 
 /**
  * Upload analized image to BBDD

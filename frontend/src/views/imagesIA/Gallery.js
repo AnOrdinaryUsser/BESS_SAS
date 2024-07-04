@@ -96,7 +96,20 @@ const Gallery = () => {
     setVisibleModify(!visibleModify);
     getDevice(deviceSerialNumber, setDevice);
   }
-
+  
+  const renderBadge = (clase) => {
+    if (clase === "can" || clase === "metal" || clase === "plastic") {
+      return <span className="badge text-bg-warning">Plástico</span>;
+    } else if (clase === "glass") {
+      return <span className="badge text-bg-success">Vidrio</span>;
+    } else if (clase === "paper") {
+      return <span className="badge text-bg-info">Papel</span>;
+    } else if (clase === "egg shell") {
+      return <span className="badge text-bg"style={{ backgroundColor: 'brown', color: 'black' }}>Orgánico</span>;
+    } else {
+      return <span className="badge text-bg" style={{ backgroundColor: 'brown', color: 'black' }}>Orgánico</span>;
+    }
+  }
 
   return (
     <>
@@ -118,7 +131,7 @@ const Gallery = () => {
                             alt={image.class}
                             style={{ maxWidth: '100%', maxHeight: '200px' }}
                         />
-                        <p>Tipo: {image.class}</p>
+                         <p>{renderBadge(image.class)}</p>
                         <CButton
                           color="secondary"
                           style={{
